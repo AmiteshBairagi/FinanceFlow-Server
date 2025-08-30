@@ -27,7 +27,8 @@ public class AuthController {
         return userService.createUser(req);
     }
 
+    @PostMapping("/login")
     public ResponseEntity<?> loginUser(@Valid @RequestBody UserLoginRequest req){
-        return ResponseEntity.status(HttpStatus.OK).body("logged in");
+        return userService.loginUser(req);
     }
 }
