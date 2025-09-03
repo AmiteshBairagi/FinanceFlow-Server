@@ -6,8 +6,6 @@ import com.amitesh.finance_flow.dto.UserCreateRequest;
 import com.amitesh.finance_flow.dto.UserLoginRequest;
 import com.amitesh.finance_flow.service.AuthService;
 import jakarta.validation.Valid;
-import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
