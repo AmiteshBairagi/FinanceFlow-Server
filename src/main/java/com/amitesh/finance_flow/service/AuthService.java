@@ -10,6 +10,10 @@ import jakarta.validation.Valid;
 import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -19,9 +23,14 @@ import java.util.Optional;
 public class AuthService {
 
     private final AuthRepository authRepo;
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
+    private final AuthenticationManager authenticationManager;
+    private final JWTService jwtService;
 
-    public AuthService(AuthRepository authRepo){
+    public AuthService(AuthRepository authRepo, AuthenticationManager authenticationManager, JWTService jwtService){
         this.authRepo = authRepo;
+        this.authenticationManager = authenticationManager;
+        this.jwtService = jwtService;
     }
 
 
@@ -37,7 +46,8 @@ public class AuthService {
         newUser.setCountry(req.getCountry());
         newUser.setCreatedAt(req.getCreatedAt());
         newUser.setSettings(req.getSettings());
-        newUser.setPassword(req.getPassword());
+        newUser.setPassword(encoder.encode(req.getPassword()));
+        newUser.setUsername(req.getUsername());
 
         try {
             User savedUser = authRepo.save(newUser);
@@ -50,20 +60,13 @@ public class AuthService {
 
 
     public ResponseEntity<?> loginUser(@Valid UserLoginRequest req) {
-        String userPassword = req.getPassword();
-        String userEmail = req.getEmail();
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(req.getUsername(),req.getPassword()));
 
-        if(!authRepo.existsByEmail(userEmail)){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User Not Exists");
+        if(authentication.isAuthenticated()){
+            return ResponseEntity.status(HttpStatus.OK).body(jwtService.getJwtToken(req.getUsername()));
         }
 
-        User dbStoredUser = authRepo.findByEmail(userEmail).orElseThrow(() -> new RuntimeException("User not found"));
-
-        if(dbStoredUser.getPassword().equals(userPassword)){
-            return ResponseEntity.status(HttpStatus.OK).body("User Successfully Logged In");
-        }else{
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Password Incorrect");
-        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to login , bad credentials");
 
     }
 

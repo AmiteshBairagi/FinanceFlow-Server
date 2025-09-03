@@ -18,12 +18,13 @@ public class UserCreateRequest {
     @NotBlank
     @Email
     private String email;
+    private String username;
     private String password;
     private String fullName;
     private String country;
     private String currency;
 
-    @NotNull
+
     private Date createdAt;
 
     private Settings settings;

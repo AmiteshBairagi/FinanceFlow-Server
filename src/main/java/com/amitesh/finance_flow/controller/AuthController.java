@@ -9,13 +9,10 @@ import jakarta.validation.Valid;
 import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/auth/users")
+@RequestMapping("/api/auth/user")
 public class AuthController {
     private final AuthService authService;
     public AuthController( AuthService authService) {
@@ -23,8 +20,12 @@ public class AuthController {
 
     }
 
+    @GetMapping("/hi")
+    public String greet (){
+        return "Amitesh";
+    }
 
-    @PostMapping("/create")
+    @PostMapping("/register")
     public ResponseEntity<?> createUser(@Valid @RequestBody UserCreateRequest req) {
         return authService.createUser(req);
     }
@@ -38,4 +39,6 @@ public class AuthController {
     public ResponseEntity<?> changePassword(@Valid @RequestBody ChangePasswordRequest req){
         return authService.changePassword(req);
     }
+
+
 }
