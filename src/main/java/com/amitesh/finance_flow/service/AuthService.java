@@ -15,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 
 
 @Service
@@ -39,13 +40,13 @@ public class AuthService {
 
         User newUser = new User();
 
+        newUser.setFirstName(req.getFirstName());
+        newUser.setLastName(req.getLastName());
+        newUser.setFullName(req.getFirstName() + " " + req.getLastName());
+        newUser.setUsername(req.getEmail());
         newUser.setEmail(req.getEmail());
-        newUser.setFullName(req.getFullName());
-        newUser.setCountry(req.getCountry());
-        newUser.setCreatedAt(req.getCreatedAt());
-        newUser.setSettings(req.getSettings());
         newUser.setPassword(encoder.encode(req.getPassword()));
-        newUser.setUsername(req.getUsername());
+        newUser.setCreatedAt(LocalDateTime.now());
 
         try {
             User savedUser = authRepo.save(newUser);

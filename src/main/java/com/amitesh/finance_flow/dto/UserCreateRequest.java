@@ -14,18 +14,11 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserCreateRequest {
+    private String firstName;
+    private String lastName;
     @NotBlank
     @Email
     private String email;
-    private String username;
     private String password;
-    private String fullName;
-    private String country;
-    private String currency;
-
-
-    private Date createdAt;
-
-    private Settings settings;
 
 }

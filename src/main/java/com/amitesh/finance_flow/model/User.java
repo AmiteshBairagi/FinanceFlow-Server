@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Document(collection = "users")
@@ -17,12 +18,12 @@ import java.util.Date;
 public class User {
     @Id
     private String id;
+    private String firstName;
+    private String lastName;
+    private String fullName;
     private String username;
     private String email;
     private String password;
-    private String fullName;
-    private String country;
-    private Settings settings;
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
 }
