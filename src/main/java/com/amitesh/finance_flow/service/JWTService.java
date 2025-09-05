@@ -32,14 +32,14 @@ public class JWTService {
         }
 
     }
-    public Object getJwtToken(String username) {
+    public Object getJwtToken(String email) {
 
         Map<String,Object>  claims = new HashMap<>();
 
         return Jwts.builder()
                 .claims()
                 .add(claims)
-                .subject(username)
+                .subject(email)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + 15*60*1000))
                 .and()
@@ -73,8 +73,8 @@ public class JWTService {
     }
 
     public boolean validateToken(String token, UserDetails userDetails) {
-        final String userName = extractUsernameFromToken(token);
-        return (userName.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        final String username = extractUsernameFromToken(token);
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
     private boolean isTokenExpired(String token) {
