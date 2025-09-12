@@ -4,6 +4,7 @@ import com.amitesh.finance_flow.dto.CreateGoalRequest;
 import com.amitesh.finance_flow.model.goals.Goal;
 import com.amitesh.finance_flow.model.goals.UserGoals;
 import com.amitesh.finance_flow.repo.GoalsRepository;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -74,5 +76,26 @@ public class GoalsService {
         }
 
         return  ResponseEntity.status(HttpStatus.OK).body("Goal deleted successfully");
+    }
+
+    public ResponseEntity<?> getAllGoals(String userId) {
+        try{
+            UserGoals existingUserGoals = repo.findByUserId(userId);
+            if(existingUserGoals == null){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User not found");
+            }
+
+            List<Goal> goals = existingUserGoals.getGoals();
+
+            if(goals.isEmpty()){
+                return ResponseEntity.status(HttpStatus.OK).body("No goals found for this user");
+            }else{
+                return ResponseEntity.status(HttpStatus.OK).body(goals);
+            }
+        }catch(Exception e ){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error getting user goals" + e.getMessage());
+        }
+
+
     }
 }

@@ -27,4 +27,9 @@ public class GoalsController {
         return goalsService.deleteGoal(userId,goalId);
     }
 
+    @GetMapping("/all-goals")
+    public ResponseEntity<?> getAllGoals(@RequestParam String userId){
+        return goalsService.getAllGoals(userId);
+    }
+
 }
