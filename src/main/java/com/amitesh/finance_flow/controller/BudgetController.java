@@ -24,4 +24,9 @@ public class BudgetController {
     public ResponseEntity<?> deleteBudget(@RequestParam String budgetId, @RequestParam String userId){
         return budgetService.deleteBudget(budgetId,userId);
     }
+
+    @GetMapping("/all-budgets")
+    public ResponseEntity<?> getAllBudgets(@RequestParam String userId){
+        return budgetService.getAllBudgets(userId);
+    }
 }

@@ -90,4 +90,19 @@ public class BudgetService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to delete Budget" + e.getMessage());
         }
     }
+
+    public ResponseEntity<?> getAllBudgets(String userId) {
+        try{
+            UserBudget userBudget = repo.findByUserId(userId);
+
+            if(userBudget == null){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User not found");
+            }
+
+            List<Budget> budgets = userBudget.getBudgets();
+            return ResponseEntity.status(HttpStatus.OK).body(budgets + "fetched all the budgets");
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to fetch all the goals"+e.getMessage());
+        }
+    }
 }
