@@ -98,4 +98,38 @@ public class GoalsService {
 
 
     }
+
+    public ResponseEntity<?> updateGoal(String goalId, CreateGoalRequest req) {
+        try{
+            String userId = req.getUserId();
+            UserGoals userGoals  = repo.findByUserId(userId);
+            List<Goal> goals = userGoals.getGoals();
+            Goal goalToUpdate = null;
+
+            for(Goal goal : goals){
+                if(goal.getGoalId().equals(goalId)){
+                    goalToUpdate = goal;
+                    break;
+                }
+            }
+
+            if(goalToUpdate == null){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No goal found to update");
+            }
+
+            goalToUpdate.setGoalName(req.getGoalName());
+            goalToUpdate.setTargetAmount(req.getTargetAmount());
+            goalToUpdate.setCurrentAmount(req.getCurrentAmount());
+            goalToUpdate.setDeadline(req.getDeadline());
+            goalToUpdate.setDescription(req.getDescription());
+            goalToUpdate.setUpdatedAt(LocalDateTime.now());
+
+            userGoals.setGoals(goals);
+            repo.save(userGoals);
+
+            return  ResponseEntity.status(HttpStatus.OK).body("Goal Updated Successfully");
+        }catch(Exception e){
+            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to update goals" + e.getMessage());
+        }
+    }
 }

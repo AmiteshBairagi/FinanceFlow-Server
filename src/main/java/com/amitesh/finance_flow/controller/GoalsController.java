@@ -32,4 +32,8 @@ public class GoalsController {
         return goalsService.getAllGoals(userId);
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<?> updateGoal(@RequestParam String goalId, @RequestBody CreateGoalRequest req){
+        return goalsService.updateGoal(goalId,req);
+    }
 }
