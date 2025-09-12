@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 
 @Service
@@ -32,6 +34,7 @@ public class GoalsService {
         }
 
         Goal goal = Goal.builder()
+                .goalId(UUID.randomUUID().toString())
                 .goalName(req.getGoalName())
                 .targetAmount(req.getTargetAmount())
                 .currentAmount(req.getCurrentAmount())
@@ -50,5 +53,26 @@ public class GoalsService {
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to save goal in the DB" + e.getMessage());
         }
+    }
+
+    public ResponseEntity<?> deleteGoal(String userId,String goalId) {
+        List<Goal> existingGoals = repo.findByUserId(userId).getGoals();
+
+        Goal goalToDelete = null;
+
+        for(Goal goal : existingGoals){
+            if(goal.getGoalId().equals(goalId)){
+                goalToDelete = goal;
+                break;
+            }
+        }
+
+        if(goalToDelete == null){
+            return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No goal found to delete");
+        }else{
+            existingGoals.remove(goalToDelete);
+        }
+
+        return  ResponseEntity.status(HttpStatus.OK).body("Goal deleted successfully");
     }
 }

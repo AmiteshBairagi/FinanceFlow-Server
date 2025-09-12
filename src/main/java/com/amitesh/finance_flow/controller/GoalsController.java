@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/goals")
+@RequestMapping("/api/goal")
 public class GoalsController {
     private final GoalsService goalsService;
 
@@ -18,6 +18,13 @@ public class GoalsController {
 
     @PostMapping("/create")
     public ResponseEntity<?> createGoal(@RequestBody CreateGoalRequest req){
+
         return goalsService.createGoal(req);
     }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteGoal(@RequestParam String userId,@RequestParam String goalId){
+        return goalsService.deleteGoal(userId,goalId);
+    }
+
 }
