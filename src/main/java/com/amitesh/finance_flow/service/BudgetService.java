@@ -6,12 +6,14 @@ import com.amitesh.finance_flow.model.User;
 import com.amitesh.finance_flow.model.budgets.Budget;
 import com.amitesh.finance_flow.model.budgets.UserBudget;
 import com.amitesh.finance_flow.repo.BudgetRepository;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -55,5 +57,37 @@ public class BudgetService {
             return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to create budget" + e.getMessage());
         }
 
+    }
+
+    public ResponseEntity<?> deleteBudget(String budgetId, String userId){
+        try{
+            UserBudget userBudget = repo.findByUserId(userId);
+            if(userBudget == null){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User not found");
+            }
+
+            List<Budget> budgets = userBudget.getBudgets();
+
+            Budget budgetToDelete = null;
+
+            for(Budget budget : budgets){
+                if(budgetId.equals(budget.getBudgetId())){
+                    budgetToDelete = budget;
+                    break;
+                }
+            }
+
+            if(budgetToDelete == null){
+                return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Budget not found");
+            }
+            budgets.remove(budgetToDelete);
+
+            repo.save(userBudget);
+
+            return ResponseEntity.status(HttpStatus.OK).body("Budget deleted successfully");
+
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to delete Budget" + e.getMessage());
+        }
     }
 }
