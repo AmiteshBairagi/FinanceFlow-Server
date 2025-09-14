@@ -10,6 +10,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Expense {
+    private String transactionId;
     private double amount;
     private String category;
     private String description;
