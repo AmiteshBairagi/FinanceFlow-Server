@@ -1,6 +1,7 @@
 package com.amitesh.finance_flow.controller;
 
 import com.amitesh.finance_flow.dto.BudgetCreateRequest;
+import com.amitesh.finance_flow.model.budgets.Budget;
 import com.amitesh.finance_flow.service.BudgetService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,5 +29,11 @@ public class BudgetController {
     @GetMapping("/all-budgets")
     public ResponseEntity<?> getAllBudgets(@RequestParam String userId){
         return budgetService.getAllBudgets(userId);
+    }
+
+    @GetMapping("/{userId}/{budgetId}")
+    public ResponseEntity<?> getBudget(@PathVariable String userId, @PathVariable String budgetId){
+        Budget budget = budgetService.getBudget(userId,budgetId);
+        return ResponseEntity.ok(budget);
     }
 }
