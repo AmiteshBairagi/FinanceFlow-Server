@@ -36,4 +36,9 @@ public class BudgetController {
         Budget budget = budgetService.getBudget(userId,budgetId);
         return ResponseEntity.ok(budget);
     }
+
+    @PutMapping("/update")
+    public ResponseEntity<?> updateBudget(@RequestParam String budgetId, @RequestBody BudgetCreateRequest req){
+        return budgetService.updateBudget(budgetId,req);
+    }
 }

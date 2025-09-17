@@ -2,6 +2,7 @@ package com.amitesh.finance_flow.service;
 
 
 import com.amitesh.finance_flow.customException.ResourceNotFoundException;
+import com.amitesh.finance_flow.customException.UserNotFoundException;
 import com.amitesh.finance_flow.dto.BudgetCreateRequest;
 import com.amitesh.finance_flow.model.budgets.Budget;
 import com.amitesh.finance_flow.model.budgets.UserBudget;
@@ -117,6 +118,46 @@ public class BudgetService {
                 .findFirst()
                 .orElseThrow(() -> new ResourceNotFoundException("Budget Not Found With the BudgetID " + budgetId));
 
+
+    }
+
+    public ResponseEntity<?> updateBudget(String budgetId, BudgetCreateRequest req) {
+        String userId = req.getUserId();
+        try{
+            UserBudget userBudget = repo.findByUserId(userId);
+            if(userBudget == null){
+                throw new UserNotFoundException("User Not found");
+            }
+
+            Budget budgetToUpdate = null;
+
+            List<Budget> budgets = userBudget.getBudgets();
+
+            for(Budget budget : budgets){
+                if(budget.getBudgetId().equals(budgetId)){
+                    budgetToUpdate = budget;
+                    break;
+                }
+            }
+
+            if(budgetToUpdate == null){
+                throw new ResourceNotFoundException("Budget Not Found");
+            }
+
+            budgetToUpdate.setBudgetName(req.getBudgetName());
+            budgetToUpdate.setBudgetAmount(req.getBudgetAmount());
+            budgetToUpdate.setCategory(req.getCategory());
+            budgetToUpdate.setPeriod(req.getPeriod());
+            budgetToUpdate.setDescription(req.getDescription());
+            budgetToUpdate.setUpdatedAt(LocalDateTime.now());
+
+            userBudget.setBudgets(budgets);
+            repo.save(userBudget);
+
+            return ResponseEntity.status(HttpStatus.OK).body("Budget Updated Successfully");
+        }catch(Exception e ){
+            throw new RuntimeException(e.getMessage());
+        }
 
     }
 }
