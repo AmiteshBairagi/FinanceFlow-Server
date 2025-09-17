@@ -4,9 +4,13 @@ package com.amitesh.finance_flow.service;
 import com.amitesh.finance_flow.customException.ResourceNotFoundException;
 import com.amitesh.finance_flow.customException.UserNotFoundException;
 import com.amitesh.finance_flow.dto.BudgetCreateRequest;
+import com.amitesh.finance_flow.dto.BudgetWrapper;
 import com.amitesh.finance_flow.model.budgets.Budget;
 import com.amitesh.finance_flow.model.budgets.UserBudget;
 import com.amitesh.finance_flow.repo.BudgetRepository;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.*;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,13 +19,16 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class BudgetService {
     private final BudgetRepository repo;
+    private final MongoTemplate mongoTemplate;
 
-    public BudgetService(BudgetRepository repo) {
+    public BudgetService(BudgetRepository repo, MongoTemplate mongoTemplate) {
         this.repo = repo;
+        this.mongoTemplate = mongoTemplate;
     }
 
     public ResponseEntity<?> createBudget(BudgetCreateRequest req) {
@@ -159,5 +166,26 @@ public class BudgetService {
             throw new RuntimeException(e.getMessage());
         }
 
+    }
+
+    public List<Budget> searchBudget(String userId, String keyword) {
+
+        MatchOperation matchUser = Aggregation.match(Criteria.where("userId").is(userId));
+        UnwindOperation unwindBudgets = Aggregation.unwind("budgets");
+
+        MatchOperation matchKeyword = Aggregation.match(new Criteria().orOperator(
+                Criteria.where("budgets.budgetName").regex(keyword,"i"),
+                Criteria.where("budgets.description").regex(keyword,"i")
+        ));
+
+        ProjectionOperation projectBudget = Aggregation.project()
+                .and("budgets").as("budget");
+
+        Aggregation aggregation = Aggregation.newAggregation(matchUser,unwindBudgets,matchKeyword,projectBudget);
+        AggregationResults<BudgetWrapper> results = mongoTemplate.aggregate(aggregation, "user_budgets", BudgetWrapper.class);
+
+        return results.getMappedResults().stream()
+                .map(BudgetWrapper::getBudget)
+                .collect(Collectors.toList());
     }
 }
