@@ -132,4 +132,37 @@ public class GoalsService {
             return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to update goals" + e.getMessage());
         }
     }
+
+    public ResponseEntity<?> getGoal(String userId, String goalId) {
+        try{
+            UserGoals userGoals = repo.findByUserId(userId);
+
+            if(userGoals == null){
+                return  ResponseEntity.status(HttpStatus.NOT_FOUND).body("User Not Found");
+            }
+
+            List<Goal> goals = userGoals.getGoals();
+
+            if(goals.size() == 0){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No Goals Found");
+            }
+
+            Goal goalToReturn = null;
+
+            for(Goal goal : goals){
+                if(goal.getGoalId().equals(goalId)){
+                    goalToReturn = goal;
+                    break;
+                }
+            }
+
+            if(goalToReturn == null){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No Goal found with the Goal Id");
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).body(goalToReturn);
+        }catch (Exception e ){
+            throw new RuntimeException(e.getMessage());
+        }
+    }
 }
