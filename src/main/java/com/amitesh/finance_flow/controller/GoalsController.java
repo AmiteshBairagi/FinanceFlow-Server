@@ -18,7 +18,6 @@ public class GoalsController {
 
     @PostMapping("/create")
     public ResponseEntity<?> createGoal(@RequestBody CreateGoalRequest req){
-
         return goalsService.createGoal(req);
     }
 

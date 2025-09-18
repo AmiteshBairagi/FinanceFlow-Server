@@ -62,7 +62,14 @@ public class AuthService {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(req.getUsername(),req.getPassword()));
 
         if(authentication.isAuthenticated()){
+
+//            User user = authRepo.findByUsername(req.getUsername())
+//                    .orElseThrow(() -> new RuntimeException("User not found"));
+
+
             return ResponseEntity.status(HttpStatus.OK).body(jwtService.getJwtToken(req.getUsername()));
+
+
         }
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to login , bad credentials");

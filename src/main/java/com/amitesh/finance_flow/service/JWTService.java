@@ -32,16 +32,16 @@ public class JWTService {
         }
 
     }
-    public Object getJwtToken(String email) {
+    public Object getJwtToken(String username) {
 
         Map<String,Object>  claims = new HashMap<>();
 
         return Jwts.builder()
                 .claims()
                 .add(claims)
-                .subject(email)
+                .subject(username)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 15*60*1000))
+                .expiration(new Date(System.currentTimeMillis() + 60*60*1000))
                 .and()
                 .signWith(getKey())
                 .compact();
@@ -58,6 +58,11 @@ public class JWTService {
         // extract the username from jwt token
         return extractClaim(token, Claims::getSubject);
     }
+
+//    public String extractUserIdFromToken(String token) {
+//        return extractClaim(token, claims -> claims.get("userId", String.class));
+//    }
+
 
     private <T> T extractClaim(String token, Function<Claims, T> claimResolver) {
         final Claims claims = extractAllClaims(token);
