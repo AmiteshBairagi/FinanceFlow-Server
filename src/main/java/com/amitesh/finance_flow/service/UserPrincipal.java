@@ -1,6 +1,6 @@
 package com.amitesh.finance_flow.service;
 
-import com.amitesh.finance_flow.model.User;
+import com.amitesh.finance_flow.model.user.User;
 import org.springframework.security.core.GrantedAuthority;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

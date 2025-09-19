@@ -1,4 +1,4 @@
-package com.amitesh.finance_flow.dto;
+package com.amitesh.finance_flow.dto.auth;
 
 
 

@@ -1,7 +1,6 @@
 package com.amitesh.finance_flow.controller;
 
-import com.amitesh.finance_flow.dto.AddExpenseRequest;
-import com.amitesh.finance_flow.model.monthly_expense.MonthlyExpense;
+import com.amitesh.finance_flow.dto.transaction.AddExpenseRequest;
 import com.amitesh.finance_flow.service.MonthlyExpenseService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,4 +22,6 @@ public class MonthlyExpenseController {
     public ResponseEntity<?>  addExpense(@RequestBody AddExpenseRequest req){
         return monthlyExpenseService.addExpense(req);
     }
+
+
 }

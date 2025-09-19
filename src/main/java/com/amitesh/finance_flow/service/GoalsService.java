@@ -1,10 +1,9 @@
 package com.amitesh.finance_flow.service;
 
-import com.amitesh.finance_flow.dto.CreateGoalRequest;
+import com.amitesh.finance_flow.dto.goal.CreateGoalRequest;
 import com.amitesh.finance_flow.model.goals.Goal;
 import com.amitesh.finance_flow.model.goals.UserGoals;
 import com.amitesh.finance_flow.repo.GoalsRepository;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 

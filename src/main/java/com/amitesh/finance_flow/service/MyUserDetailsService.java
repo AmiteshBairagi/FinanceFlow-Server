@@ -1,6 +1,6 @@
 package com.amitesh.finance_flow.service;
 
-import com.amitesh.finance_flow.model.User;
+import com.amitesh.finance_flow.model.user.User;
 import com.amitesh.finance_flow.repo.AuthRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

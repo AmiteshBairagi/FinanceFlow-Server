@@ -1,6 +1,6 @@
 package com.amitesh.finance_flow.controller;
 
-import com.amitesh.finance_flow.dto.BudgetCreateRequest;
+import com.amitesh.finance_flow.dto.budget.BudgetCreateRequest;
 import com.amitesh.finance_flow.model.budgets.Budget;
 import com.amitesh.finance_flow.service.BudgetService;
 import com.amitesh.finance_flow.service.UserPrincipal;
@@ -54,8 +54,8 @@ public class BudgetController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<?> searchBudget(@RequestParam String userId, @RequestParam String keyword){
-        List<Budget> matchedBudgets =  budgetService.searchBudget(userId,keyword);
+    public ResponseEntity<?> searchBudget(@RequestParam String keyword){
+        List<Budget> matchedBudgets =  budgetService.searchBudget(getCurrentUser().getUserId(), keyword);
         return ResponseEntity.ok(matchedBudgets);
     }
 }

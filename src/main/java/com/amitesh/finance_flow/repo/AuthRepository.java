@@ -1,7 +1,7 @@
 package com.amitesh.finance_flow.repo;
 
 
-import com.amitesh.finance_flow.model.User;
+import com.amitesh.finance_flow.model.user.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

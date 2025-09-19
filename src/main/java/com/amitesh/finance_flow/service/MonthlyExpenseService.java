@@ -1,6 +1,6 @@
 package com.amitesh.finance_flow.service;
 
-import com.amitesh.finance_flow.dto.AddExpenseRequest;
+import com.amitesh.finance_flow.dto.transaction.AddExpenseRequest;
 import com.amitesh.finance_flow.model.monthly_expense.Expense;
 import com.amitesh.finance_flow.model.monthly_expense.MonthlyExpense;
 import com.amitesh.finance_flow.rabbitMQEvent.transactionEvent.TransactionEventPublisher;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.UUID;
 
 @Service
