@@ -1,5 +1,4 @@
-package com.amitesh.finance_flow.dto;
-
+package com.amitesh.finance_flow.dto.goal;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,16 +6,16 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class BudgetCreateRequest {
-    private String userId;
-    private String budgetName;
-    private String category;
-    private double budgetAmount;
-    private String period;
-    private LocalDate startDate;
-    private String description;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class CreateGoalRequest {
+    private String userId;
+    private String goalName;
+    private double targetAmount;
+    private double currentAmount;
+    private String category;
+    private LocalDate deadline;
+    private String description;
 }

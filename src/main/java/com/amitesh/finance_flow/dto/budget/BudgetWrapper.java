@@ -1,4 +1,4 @@
-package com.amitesh.finance_flow.dto;
+package com.amitesh.finance_flow.dto.budget;
 
 import com.amitesh.finance_flow.model.budgets.Budget;
 import lombok.AllArgsConstructor;

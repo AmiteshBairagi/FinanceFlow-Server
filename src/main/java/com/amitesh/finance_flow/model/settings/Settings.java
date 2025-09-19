@@ -1,4 +1,4 @@
-package com.amitesh.finance_flow.model;
+package com.amitesh.finance_flow.model.settings;
 
 
 import lombok.Data;

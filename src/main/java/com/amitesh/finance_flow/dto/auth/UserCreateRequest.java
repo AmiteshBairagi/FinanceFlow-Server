@@ -1,14 +1,11 @@
-package com.amitesh.finance_flow.dto;
+package com.amitesh.finance_flow.dto.auth;
 
 
-import com.amitesh.finance_flow.model.Settings;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Date;
 
 @Data
 @NoArgsConstructor
