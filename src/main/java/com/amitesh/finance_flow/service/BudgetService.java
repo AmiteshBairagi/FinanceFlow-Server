@@ -2,9 +2,15 @@ package com.amitesh.finance_flow.service;
 
 
 import com.amitesh.finance_flow.customException.ResourceNotFoundException;
+<<<<<<< Updated upstream
 import com.amitesh.finance_flow.customException.UserNotFoundException;
 import com.amitesh.finance_flow.dto.budget.BudgetCreateRequest;
 import com.amitesh.finance_flow.dto.budget.BudgetWrapper;
+=======
+import com.amitesh.finance_flow.customException.user.UserNotFoundException;
+import com.amitesh.finance_flow.dto.BudgetCreateRequest;
+import com.amitesh.finance_flow.dto.BudgetWrapper;
+>>>>>>> Stashed changes
 import com.amitesh.finance_flow.model.budgets.Budget;
 import com.amitesh.finance_flow.model.budgets.UserBudget;
 import com.amitesh.finance_flow.repo.BudgetRepository;
