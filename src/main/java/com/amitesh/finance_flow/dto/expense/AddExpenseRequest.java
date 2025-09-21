@@ -1,4 +1,4 @@
-package com.amitesh.finance_flow.dto.transaction;
+package com.amitesh.finance_flow.dto.expense;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

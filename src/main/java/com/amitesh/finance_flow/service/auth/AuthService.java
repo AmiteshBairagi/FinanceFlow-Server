@@ -60,7 +60,7 @@ public class AuthService {
 
 
     public ResponseEntity<?> loginUser(@Valid UserLoginRequest req) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(req.getUsername(),req.getPassword()));
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(req.getUserName(),req.getPassword()));
 
         if(authentication.isAuthenticated()){
 
@@ -68,7 +68,7 @@ public class AuthService {
 //                    .orElseThrow(() -> new RuntimeException("User not found"));
 
 
-            return ResponseEntity.status(HttpStatus.OK).body(jwtService.getJwtToken(req.getUsername()));
+            return ResponseEntity.status(HttpStatus.OK).body(jwtService.getJwtToken(req.getUserName()));
 
 
         }
