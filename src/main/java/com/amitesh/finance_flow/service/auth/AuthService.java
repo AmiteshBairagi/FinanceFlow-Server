@@ -1,11 +1,12 @@
-package com.amitesh.finance_flow.service;
+package com.amitesh.finance_flow.service.auth;
 
 
 import com.amitesh.finance_flow.dto.auth.ChangePasswordRequest;
 import com.amitesh.finance_flow.dto.auth.UserCreateRequest;
 import com.amitesh.finance_flow.dto.auth.UserLoginRequest;
 import com.amitesh.finance_flow.model.user.User;
-import com.amitesh.finance_flow.repo.AuthRepository;
+import com.amitesh.finance_flow.repo.auth.AuthRepository;
+import com.amitesh.finance_flow.service.JWTService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

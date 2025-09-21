@@ -1,4 +1,4 @@
-package com.amitesh.finance_flow.service;
+package com.amitesh.finance_flow.service.budget;
 
 
 import com.amitesh.finance_flow.customException.ResourceNotFoundException;
@@ -8,7 +8,7 @@ import com.amitesh.finance_flow.dto.budget.BudgetWrapper;
 
 import com.amitesh.finance_flow.model.budgets.Budget;
 import com.amitesh.finance_flow.model.budgets.UserBudgets;
-import com.amitesh.finance_flow.repo.BudgetRepository;
+import com.amitesh.finance_flow.repo.budgets.BudgetRepository;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.*;
 import org.springframework.data.mongodb.core.query.Criteria;

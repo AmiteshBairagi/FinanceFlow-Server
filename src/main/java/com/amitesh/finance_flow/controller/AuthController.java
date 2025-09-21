@@ -4,7 +4,7 @@ package com.amitesh.finance_flow.controller;
 import com.amitesh.finance_flow.dto.auth.ChangePasswordRequest;
 import com.amitesh.finance_flow.dto.auth.UserCreateRequest;
 import com.amitesh.finance_flow.dto.auth.UserLoginRequest;
-import com.amitesh.finance_flow.service.AuthService;
+import com.amitesh.finance_flow.service.auth.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

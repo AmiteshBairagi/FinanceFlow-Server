@@ -1,9 +1,9 @@
-package com.amitesh.finance_flow.service;
+package com.amitesh.finance_flow.service.goals;
 
 import com.amitesh.finance_flow.dto.goal.CreateGoalRequest;
 import com.amitesh.finance_flow.model.goals.Goal;
 import com.amitesh.finance_flow.model.goals.UserGoals;
-import com.amitesh.finance_flow.repo.GoalsRepository;
+import com.amitesh.finance_flow.repo.goals.GoalsRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

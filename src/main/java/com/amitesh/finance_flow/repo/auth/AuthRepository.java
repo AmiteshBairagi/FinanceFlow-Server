@@ -1,4 +1,4 @@
-package com.amitesh.finance_flow.repo;
+package com.amitesh.finance_flow.repo.auth;
 
 
 import com.amitesh.finance_flow.model.user.User;

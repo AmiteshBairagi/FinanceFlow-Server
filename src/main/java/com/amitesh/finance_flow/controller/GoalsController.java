@@ -1,7 +1,7 @@
 package com.amitesh.finance_flow.controller;
 
 import com.amitesh.finance_flow.dto.goal.CreateGoalRequest;
-import com.amitesh.finance_flow.service.GoalsService;
+import com.amitesh.finance_flow.service.goals.GoalsService;
 import com.amitesh.finance_flow.service.UserPrincipal;
 import org.springframework.http.ResponseEntity;
 

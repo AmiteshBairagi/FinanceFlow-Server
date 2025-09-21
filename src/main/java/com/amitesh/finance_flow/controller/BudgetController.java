@@ -2,7 +2,7 @@ package com.amitesh.finance_flow.controller;
 
 import com.amitesh.finance_flow.dto.budget.BudgetCreateRequest;
 import com.amitesh.finance_flow.model.budgets.Budget;
-import com.amitesh.finance_flow.service.BudgetService;
+import com.amitesh.finance_flow.service.budget.BudgetService;
 import com.amitesh.finance_flow.service.UserPrincipal;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;

@@ -1,7 +1,7 @@
 package com.amitesh.finance_flow.service;
 
 import com.amitesh.finance_flow.model.user.User;
-import com.amitesh.finance_flow.repo.AuthRepository;
+import com.amitesh.finance_flow.repo.auth.AuthRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
