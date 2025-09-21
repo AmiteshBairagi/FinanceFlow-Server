@@ -5,18 +5,25 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
 import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class BudgetCreateRequest {
-    private String userId;
     private String budgetName;
-    private String category;
     private double budgetAmount;
-    private String period;
-    private LocalDate startDate;
+    private String categoryId;
+    private int year;
+    private int month;
+    private boolean isYearly;
+    private String startDate;
+    private String endDate;
     private String description;
 
+
+    public boolean getIsYearly() {
+        return isYearly;
+    }
 }

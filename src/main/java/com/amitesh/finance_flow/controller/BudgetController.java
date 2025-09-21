@@ -28,30 +28,30 @@ public class BudgetController {
 
     @PostMapping("/create")
     public ResponseEntity<?> createBudget(@RequestBody BudgetCreateRequest req){
-        return budgetService.createBudget(req);
+        return budgetService.createBudget(req,getCurrentUser().getUserId());
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteBudget(@RequestParam String budgetId){
-        return budgetService.deleteBudget(budgetId,getCurrentUser().getUserId());
-    }
-
-    @GetMapping("/all-budgets")
-    public ResponseEntity<?> getAllBudgets(){
-
-        return budgetService.getAllBudgets(getCurrentUser().getUserId());
-    }
-
-    @GetMapping("/{userId}/{budgetId}")
-    public ResponseEntity<?> getBudget(@PathVariable String userId, @PathVariable String budgetId){
-        Budget budget = budgetService.getBudget(userId,budgetId);
-        return ResponseEntity.ok(budget);
-    }
-
-    @PutMapping("/update")
-    public ResponseEntity<?> updateBudget(@RequestParam String budgetId, @RequestBody BudgetCreateRequest req){
-        return budgetService.updateBudget(budgetId,req);
-    }
+//    @DeleteMapping("/delete")
+//    public ResponseEntity<?> deleteBudget(@RequestParam String budgetId){
+//        return budgetService.deleteBudget(budgetId,getCurrentUser().getUserId());
+//    }
+//
+//    @GetMapping("/all-budgets")
+//    public ResponseEntity<?> getAllBudgets(){
+//
+//        return budgetService.getAllBudgets(getCurrentUser().getUserId());
+//    }
+//
+//    @GetMapping("/{userId}/{budgetId}")
+//    public ResponseEntity<?> getBudget(@PathVariable String userId, @PathVariable String budgetId){
+//        Budget budget = budgetService.getBudget(userId,budgetId);
+//        return ResponseEntity.ok(budget);
+//    }
+//
+//    @PutMapping("/update")
+//    public ResponseEntity<?> updateBudget(@RequestParam String budgetId, @RequestBody BudgetCreateRequest req){
+//        return budgetService.updateBudget(budgetId,req);
+//    }
 
     @GetMapping("/search")
     public ResponseEntity<?> searchBudget(@RequestParam String keyword){

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -17,10 +18,11 @@ public class Budget {
     private String budgetId;
     private String budgetName;
     private double budgetAmount;
-    private String category;
-    private String period;
-    private LocalDate startDate;
+    private double usedAmount;
+    private String categoryId;
+    private String startDate;
+    private String endDate;
     private String description;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private Instant createdAt;
+    private Instant updatedAt;
 }
