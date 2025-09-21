@@ -27,24 +27,24 @@ public class GoalsController {
         return goalsService.createGoal(req);
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteGoal(@RequestParam String goalId){
-        return goalsService.deleteGoal(getCurrentUser().getUserId(), goalId);
-    }
-
-    @GetMapping("/all-goals")
-    public ResponseEntity<?> getAllGoals(){
-
-        return goalsService.getAllGoals(getCurrentUser().getUserId());
-    }
-
-    @PutMapping("/update")
-    public ResponseEntity<?> updateGoal(@RequestParam String goalId, @RequestBody CreateGoalRequest req){
-        return goalsService.updateGoal(goalId,req);
-    }
-
-    @GetMapping()
-    public ResponseEntity<?> getGoal(@RequestParam String goalId){
-        return goalsService.getGoal(getCurrentUser().getUserId(), goalId);
-    }
+//    @DeleteMapping("/delete")
+//    public ResponseEntity<?> deleteGoal(@RequestParam String goalId){
+//        return goalsService.deleteGoal(getCurrentUser().getUserId(), goalId);
+//    }
+//
+//    @GetMapping("/all-goals")
+//    public ResponseEntity<?> getAllGoals(){
+//
+//        return goalsService.getAllGoals(getCurrentUser().getUserId());
+//    }
+//
+//    @PutMapping("/update")
+//    public ResponseEntity<?> updateGoal(@RequestParam String goalId, @RequestBody CreateGoalRequest req){
+//        return goalsService.updateGoal(goalId,req);
+//    }
+//
+//    @GetMapping()
+//    public ResponseEntity<?> getGoal(@RequestParam String goalId){
+//        return goalsService.getGoal(getCurrentUser().getUserId(), goalId);
+//    }
 }
