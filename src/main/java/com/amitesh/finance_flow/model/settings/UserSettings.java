@@ -2,6 +2,7 @@ package com.amitesh.finance_flow.model.settings;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -13,6 +14,7 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "user_settings")
+@Builder
 public class UserSettings {
     @Id
     private String id;

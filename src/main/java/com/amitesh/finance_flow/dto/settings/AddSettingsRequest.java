@@ -1,5 +1,4 @@
-package com.amitesh.finance_flow.model.settings;
-
+package com.amitesh.finance_flow.dto.settings;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Notifications {
+public class AddSettingsRequest {
+    private String currencyCode;
+    private String currencySymbol;
+    private String dateFormat;
     private boolean budgetAlerts;
     private boolean billReminders;
     private boolean goalUpdates;

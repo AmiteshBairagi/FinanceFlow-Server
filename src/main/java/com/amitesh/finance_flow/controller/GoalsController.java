@@ -22,10 +22,10 @@ public class GoalsController {
         return (UserPrincipal) authentication.getPrincipal();
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<?> createGoal(@RequestBody CreateGoalRequest req){
-        return goalsService.createGoal(req);
-    }
+//    @PostMapping("/create")
+//    public ResponseEntity<?> createGoal(@RequestBody CreateGoalRequest req){
+//        return goalsService.createGoal(req);
+//    }
 
 //    @DeleteMapping("/delete")
 //    public ResponseEntity<?> deleteGoal(@RequestParam String goalId){
