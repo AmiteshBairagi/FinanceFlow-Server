@@ -4,20 +4,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
+
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddExpenseRequest {
-    private String userId;
-    private Double amount;
-    private String category;
+    private Double amountSpent;
+    private String categoryId;
     private String description;
+    private LocalDate date;
+    private String paymentMethodId;
+    private String note;
     private int year;
     private int month;
-    private Date date;
-    private String paymentMethod;
-    private String tag;
-    private String note;
 }
