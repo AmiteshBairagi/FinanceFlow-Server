@@ -1,24 +1,25 @@
-package com.amitesh.finance_flow.model.budgets;
+package com.amitesh.finance_flow.model.settings;
 
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.Instant;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "user_budgets")
-@Builder
-public class UserBudget {
+@Document(collection = "user_settings")
+public class UserSettings {
     @Id
     private String id;
     private String userId;
-    private List<Budget> budgets = new ArrayList<>();
+    private Preferences preferences;
+    private Notifications notifications;
+    private Instant createdAt;
+    private Instant updatedAt;
+
 }

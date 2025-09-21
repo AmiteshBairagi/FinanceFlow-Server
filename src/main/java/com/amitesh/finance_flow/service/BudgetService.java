@@ -2,17 +2,12 @@ package com.amitesh.finance_flow.service;
 
 
 import com.amitesh.finance_flow.customException.ResourceNotFoundException;
-<<<<<<< Updated upstream
-import com.amitesh.finance_flow.customException.UserNotFoundException;
+import com.amitesh.finance_flow.customException.user.UserNotFoundException;
 import com.amitesh.finance_flow.dto.budget.BudgetCreateRequest;
 import com.amitesh.finance_flow.dto.budget.BudgetWrapper;
-=======
-import com.amitesh.finance_flow.customException.user.UserNotFoundException;
-import com.amitesh.finance_flow.dto.BudgetCreateRequest;
-import com.amitesh.finance_flow.dto.BudgetWrapper;
->>>>>>> Stashed changes
+
 import com.amitesh.finance_flow.model.budgets.Budget;
-import com.amitesh.finance_flow.model.budgets.UserBudget;
+import com.amitesh.finance_flow.model.budgets.UserBudgets;
 import com.amitesh.finance_flow.repo.BudgetRepository;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.*;
@@ -54,16 +49,16 @@ public class BudgetService {
 
         try {
             String userId = req.getUserId();
-            UserBudget userBudget = repo.findByUserId(userId);
-            if (userBudget == null) {
-                userBudget = UserBudget.builder()
+            UserBudgets userBudgets = repo.findByUserId(userId);
+            if (userBudgets == null) {
+                userBudgets = UserBudgets.builder()
                         .userId(userId)
                         .budgets(new ArrayList<>())
                         .build();
             }
 
-            userBudget.getBudgets().add(budget);
-            repo.save(userBudget);
+            userBudgets.getBudgets().add(budget);
+            repo.save(userBudgets);
             return ResponseEntity.status(HttpStatus.CREATED).body("Budget Successfully Created");
 
         } catch (Exception e) {
@@ -74,12 +69,12 @@ public class BudgetService {
 
     public ResponseEntity<?> deleteBudget(String budgetId, String userId) {
         try {
-            UserBudget userBudget = repo.findByUserId(userId);
-            if (userBudget == null) {
+            UserBudgets userBudgets = repo.findByUserId(userId);
+            if (userBudgets == null) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User not found");
             }
 
-            List<Budget> budgets = userBudget.getBudgets();
+            List<Budget> budgets = userBudgets.getBudgets();
 
             Budget budgetToDelete = null;
 
@@ -95,7 +90,7 @@ public class BudgetService {
             }
             budgets.remove(budgetToDelete);
 
-            repo.save(userBudget);
+            repo.save(userBudgets);
 
             return ResponseEntity.status(HttpStatus.OK).body("Budget deleted successfully");
 
@@ -106,13 +101,13 @@ public class BudgetService {
 
     public ResponseEntity<?> getAllBudgets(String userId) {
         try {
-            UserBudget userBudget = repo.findByUserId(userId);
+            UserBudgets userBudgets = repo.findByUserId(userId);
 
-            if (userBudget == null) {
+            if (userBudgets == null) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User not found");
             }
 
-            List<Budget> budgets = userBudget.getBudgets();
+            List<Budget> budgets = userBudgets.getBudgets();
             return ResponseEntity.status(HttpStatus.OK).body(budgets + "fetched all the budgets");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to fetch all the goals" + e.getMessage());
@@ -120,13 +115,13 @@ public class BudgetService {
     }
 
     public Budget getBudget(String userId, String budgetId) {
-        UserBudget userBudget = repo.findByUserId(userId);
-        if (userBudget == null) {
+        UserBudgets userBudgets = repo.findByUserId(userId);
+        if (userBudgets == null) {
             throw new ResourceNotFoundException("Budget Not Found");
 
         }
 
-        return userBudget.getBudgets().stream()
+        return userBudgets.getBudgets().stream()
                 .filter(budget -> budget.getBudgetId().equals(budgetId))
                 .findFirst()
                 .orElseThrow(() -> new ResourceNotFoundException("Budget Not Found With the BudgetID " + budgetId));
@@ -137,14 +132,14 @@ public class BudgetService {
     public ResponseEntity<?> updateBudget(String budgetId, BudgetCreateRequest req) {
         String userId = req.getUserId();
         try{
-            UserBudget userBudget = repo.findByUserId(userId);
-            if(userBudget == null){
-                throw new UserNotFoundException("User Not found");
+            UserBudgets userBudgets = repo.findByUserId(userId);
+            if(userBudgets == null){
+                throw new UserNotFoundException("User Not Found");
             }
 
             Budget budgetToUpdate = null;
 
-            List<Budget> budgets = userBudget.getBudgets();
+            List<Budget> budgets = userBudgets.getBudgets();
 
             for(Budget budget : budgets){
                 if(budget.getBudgetId().equals(budgetId)){
@@ -164,8 +159,8 @@ public class BudgetService {
             budgetToUpdate.setDescription(req.getDescription());
             budgetToUpdate.setUpdatedAt(LocalDateTime.now());
 
-            userBudget.setBudgets(budgets);
-            repo.save(userBudget);
+            userBudgets.setBudgets(budgets);
+            repo.save(userBudgets);
 
             return ResponseEntity.status(HttpStatus.OK).body("Budget Updated Successfully");
         }catch(Exception e ){
