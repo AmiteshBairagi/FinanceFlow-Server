@@ -1,14 +1,12 @@
 package com.amitesh.finance_flow.service.budget;
 
 
-import com.amitesh.finance_flow.customException.ResourceNotFoundException;
-import com.amitesh.finance_flow.customException.user.UserNotFoundException;
 import com.amitesh.finance_flow.dto.budget.BudgetCreateRequest;
 import com.amitesh.finance_flow.dto.budget.BudgetWrapper;
 
 import com.amitesh.finance_flow.model.budgets.Budget;
 import com.amitesh.finance_flow.model.budgets.UserBudgets;
-import com.amitesh.finance_flow.repo.budgets.BudgetRepository;
+import com.amitesh.finance_flow.repo.budgets.UserBudgetsRepository;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.*;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -17,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,10 +23,10 @@ import java.util.stream.Collectors;
 
 @Service
 public class BudgetService {
-    private final BudgetRepository repo;
+    private final UserBudgetsRepository repo;
     private final MongoTemplate mongoTemplate;
 
-    public BudgetService(BudgetRepository repo, MongoTemplate mongoTemplate) {
+    public BudgetService(UserBudgetsRepository repo, MongoTemplate mongoTemplate) {
         this.repo = repo;
         this.mongoTemplate = mongoTemplate;
     }

@@ -11,15 +11,11 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMQConfig {
     public static final String EXCHANGE_NAME = "finance.app.exchange";
     public static final String DASHBOARD_QUEUE = "dashboard.stats.update.queue";
-    public static final String ROUTING_KEY = "dashboard.routing.key";
-
-
-//    public static final String EMAIL_QUEUE = "email.notifications.queue";
-//    public static final String NOTIFICATION_QUEUE = "user.notifications.queue";
-//    public static final String TRANSACTION_QUEUE = "transactions.event.queue";
-//    public static final String BUDGET_QUEUE = "budgets.event.queue";
-//    public static final String GOAL_QUEUE = "goals.event.queue";
-
+    public static final String EXPENSE_QUEUE = "expense.queue";
+    public static final String INCOME_QUEUE = "income.queue";
+    public static final String DASHBOARD_ROUTING_KEY = "dashboard.routing.key";
+    public static final String INCOME_ROUTING_KEY = "income.routing.key";
+    public static final String EXPENSE_ROUTING_KEY = "expense.routing.key";
 
 
     @Bean
@@ -33,11 +29,39 @@ public class RabbitMQConfig {
     }
 
     @Bean
-    public Binding binding(Queue dashboardQueue, TopicExchange exchange){
+    public Queue incomeQueue(){
+        return new Queue(INCOME_QUEUE);
+    }
+
+    @Bean
+    public Queue expenseQueue(){
+        return new Queue(EXPENSE_QUEUE);
+    }
+
+    @Bean
+    public Binding dashboardQueueBinding(Queue dashboardQueue, TopicExchange topicExchange){
         return BindingBuilder
                 .bind(dashboardQueue)
-                .to(exchange)
-                .with(ROUTING_KEY);
+                .to(topicExchange)
+                .with(DASHBOARD_ROUTING_KEY);
+    }
+
+
+    @Bean
+    public Binding incomeQueueBinding(Queue incomeQueue, TopicExchange topicExchange){
+        return BindingBuilder
+                .bind(incomeQueue)
+                .to(topicExchange)
+                .with(INCOME_ROUTING_KEY);
+    }
+
+
+    @Bean
+    public Binding expenseQueueBinding(Queue expenseQueue, TopicExchange topicExchange){
+        return BindingBuilder
+                .bind(expenseQueue)
+                .to(topicExchange)
+                .with(EXPENSE_ROUTING_KEY);
     }
 
     @Bean

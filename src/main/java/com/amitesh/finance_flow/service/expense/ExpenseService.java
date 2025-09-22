@@ -3,6 +3,7 @@ package com.amitesh.finance_flow.service.expense;
 import com.amitesh.finance_flow.dto.expense.AddExpenseRequest;
 import com.amitesh.finance_flow.model.expense.Expense;
 import com.amitesh.finance_flow.model.expense.UserExpense;
+import com.amitesh.finance_flow.rabbitMQEvent.transactionEvent.ExpenseAddedEventPublisher;
 import com.amitesh.finance_flow.repo.expense.ExpenseRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +17,11 @@ import java.util.UUID;
 @Service
 public class ExpenseService {
     private final ExpenseRepository repo;
+    private final ExpenseAddedEventPublisher publisher;
 
-    public ExpenseService(ExpenseRepository repo) {
+    public ExpenseService(ExpenseRepository repo, ExpenseAddedEventPublisher publisher) {
         this.repo = repo;
+        this.publisher = publisher;
     }
 
     public ResponseEntity<?> addExpense(AddExpenseRequest req, String userId) {
@@ -48,6 +51,7 @@ public class ExpenseService {
             }
 
             repo.save(userExpense);
+            publisher.publishExpenseAddedEvent(userId, req.getCategoryId(), req.getAmountSpent());
             return ResponseEntity.status(HttpStatus.OK).body("Expense Successfully Saved In The Database");
         } catch (Exception e) {
             throw new RuntimeException(e);

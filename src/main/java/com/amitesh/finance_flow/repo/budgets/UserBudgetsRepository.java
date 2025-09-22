@@ -6,6 +6,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @ResponseBody
-public interface BudgetRepository extends MongoRepository<UserBudgets,String> {
+public interface UserBudgetsRepository extends MongoRepository<UserBudgets,String> {
     UserBudgets findByUserId(String userId);
 }
