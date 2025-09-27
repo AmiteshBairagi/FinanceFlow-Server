@@ -1,26 +1,21 @@
-package com.amitesh.finance_flow.model.income;
-
+package com.amitesh.finance_flow.dto.income;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.Instant;
 import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class Income {
-    private String incomeId;
+public class AddIncomeRequest {
     private double incomeAmount;
+    private String incomeSource;
     private String categoryId;
-    private String incomeSourcce;
     private LocalDate date;
     private String paymentMethodId;
     private String note;
-    private Instant createdAt;
-    private Instant updatedAt;
+    private int year;
+    private int month;
 }
