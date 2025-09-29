@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
 import java.time.LocalDate;
 
 
@@ -11,11 +12,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateGoalRequest {
-    private String userId;
     private String goalName;
     private double targetAmount;
     private double currentAmount;
-    private String category;
-    private LocalDate deadline;
-    private String description;
+    private Instant deadline;
+    private String decription;
+    private String status;
 }

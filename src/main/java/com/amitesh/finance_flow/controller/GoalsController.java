@@ -12,39 +12,25 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/goal")
 public class GoalsController {
-    private final GoalsService goalsService;
+    private final GoalsService service;
 
-    public GoalsController(GoalsService goalsService) {
-        this.goalsService = goalsService;
+    public GoalsController(GoalsService service) {
+        this.service = service;
     }
+
+
     private UserPrincipal getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return (UserPrincipal) authentication.getPrincipal();
     }
 
-//    @PostMapping("/create")
-//    public ResponseEntity<?> createGoal(@RequestBody CreateGoalRequest req){
-//        return goalsService.createGoal(req);
-//    }
+    @PostMapping("/create")
+    public ResponseEntity<?> createGoal(@RequestBody CreateGoalRequest req){
+        return service.createGoal(req,getCurrentUser().getUserId());
+    }
 
-//    @DeleteMapping("/delete")
-//    public ResponseEntity<?> deleteGoal(@RequestParam String goalId){
-//        return goalsService.deleteGoal(getCurrentUser().getUserId(), goalId);
-//    }
-//
-//    @GetMapping("/all-goals")
-//    public ResponseEntity<?> getAllGoals(){
-//
-//        return goalsService.getAllGoals(getCurrentUser().getUserId());
-//    }
-//
-//    @PutMapping("/update")
-//    public ResponseEntity<?> updateGoal(@RequestParam String goalId, @RequestBody CreateGoalRequest req){
-//        return goalsService.updateGoal(goalId,req);
-//    }
-//
-//    @GetMapping()
-//    public ResponseEntity<?> getGoal(@RequestParam String goalId){
-//        return goalsService.getGoal(getCurrentUser().getUserId(), goalId);
-//    }
+    @GetMapping("/all-goals")
+    public ResponseEntity<?> getAllGoals(){
+        return service.getAllGoals(getCurrentUser().getUserId());
+    }
 }

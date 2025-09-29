@@ -22,7 +22,7 @@ public class Goal {
     private String goalName;
     private double targetAmount;
     private double currentAmount;
-    private LocalDate deadline;
+    private Instant deadline;
     private String description;
     @Builder.Default
     private String status = "active";
